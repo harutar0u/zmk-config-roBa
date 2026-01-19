@@ -79,13 +79,13 @@
 
         default_layer {
             bindings = <
-&kp Q      &kp W         &kp E             &kp R           &kp T                                                    &kp Y           &kp U  &kp I      &kp O    &kp P
-&kp A      &kp S         &kp D             &kp F           &kp G                  &mkp MCLK          &kp MINUS      &kp H           &kp J  &kp K      &kp L    &kp ENTER
-&kp Z      &kp X         &kp C             &kp V           &kp B                  &kp TAB            &kp SEMICOLON  &kp N           &kp M  &kp COMMA  &kp DOT  &kp RIGHT_SHIFT
-&kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &kp LEFT_SHIFT  &lt 2 INTERNATIONAL_1  &kp BACKSPACE      &lt 1 SPACE    &lt 3 INT_KANA                             &kp SLASH
+&kp Q      &kp W         &kp E             &kp R           &kp T                                          &kp Y        &kp U  &kp I      &kp O    &kp P
+&kp A      &kp S         &kp D             &kp F           &kp G        &mkp MCLK          &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp ENTER
+&kp Z      &kp X         &kp C             &kp V           &kp B        &kp TAB            &kp SEMICOLON  &kp N        &kp M  &kp COMMA  &kp DOT  &kp RIGHT_SHIFT
+&kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &kp LEFT_SHIFT  &lt 2 GLOBE  &kp BACKSPACE      &lt 1 SPACE    &lt 3 GLOBE                             &kp SLASH
             >;
 
-            sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
+            sensor-bindings = <&inc_dec_kp K_SCROLL_UP K_SCROLL_DOWN>;
         };
 
         NUM {
