@@ -85,7 +85,7 @@
 &kp LCTRL  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt 3 LANGUAGE_2  &lt 1 SPACE  &kp LEFT_SHIFT      &kp BACKSPACE  &lt 2 ENTER                               &kp ESCAPE
             >;
 
-            sensor-bindings = <&inc_dec_kp K_SCROLL_UP K_SCROLL_DOWN>;
+            sensor-bindings = <&inc_dec_kp PAGE_UP PAGE_DOWN>;
         };
 
         FUNCTION {
@@ -114,7 +114,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                  &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+            sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
         };
 
         ARROW {
