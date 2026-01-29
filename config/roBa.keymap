@@ -5,12 +5,22 @@
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80
 
+/* レイヤー定義を分かりやすくするために名前をつけておくと便利です */
+#define MAC_BASE 0
+#define WIN_BASE 1
+#define MOUSE    2
+#define FUNCTION 3
+#define NUM      4
+#define ARROW    5
+#define SCROLL   6
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
 };
 
-&trackball { scroll-layers = <5>; };
+/* SCROLLレイヤーの番号が変わったため修正 (5 -> 6) */
+&trackball { scroll-layers = <6>; };
 
 / {
     combos {
@@ -101,95 +111,88 @@
         compatible = "zmk,keymap";
 
         /* Layer 0: MAC Base (Default) */
-
         default_layer {
             bindings = <
-&kp Q            &kp W         &kp E             &kp R             &kp T                                              &kp Y             &kp U  &kp I        &kp O    &kp P
-&kp A            &kp S         &kp D             &kp F             &kp G        &mkp MB3               &kp MINUS      &kp H             &kp J  &kp K        &kp L    &lt 1 ENTER
-&z_ctrl LCTRL Z  &kp X         &kp C             &kp V             &kp B        &tab_fn GLOBE TAB      &kp EQUAL      &kp N             &kp M  &lt 5 COMMA  &kp DOT  &kp SLASH
-&kp LEFT_SHIFT   &kp LEFT_ALT  &kp LEFT_COMMAND  &lt 1 LANGUAGE_2  &lt 2 SPACE  &lt 3 ESCAPE           &kp BACKSPACE  &lt 3 LANGUAGE_1                               &kp RIGHT_SHIFT
+&kp Q            &kp W         &kp E             &kp R              &kp T                                                             &kp Y              &kp U  &kp I         &kp O    &kp P
+&kp A            &kp S         &kp D             &kp F              &kp G         &mkp MB3                  &kp MINUS       &kp H              &kp J  &kp K         &kp L    &lt MOUSE ENTER
+&z_ctrl LCTRL Z  &kp X         &kp C             &kp V              &kp B         &tab_fn GLOBE TAB       &kp EQUAL       &kp N              &kp M  &lt SCROLL COMMA  &kp DOT  &kp SLASH
+&kp LEFT_SHIFT   &kp LEFT_ALT  &kp LEFT_COMMAND  &lt MOUSE LANGUAGE_2  &lt FUNCTION SPACE  &lt NUM ESCAPE                  &kp BACKSPACE  &lt NUM LANGUAGE_1                                 &kp RIGHT_SHIFT
             >;
 
             sensor-bindings = <&encoder_msc_down_up>;
         };
 
-        /* Layer 1 */
+        /* Layer 1: WINDOWS Base (ここへ移動) */
+        WIN_BASE {
+            bindings = <
+&kp Q               &kp W         &kp E      &kp R       &kp T                                              &kp Y              &kp U  &kp I         &kp O    &kp P
+&kp A               &kp S         &kp D      &kp F       &kp G         &mkp MCLK                  &kp MINUS  &kp H              &kp J  &kp K         &kp L    &lt MOUSE ENTER
+&z_ctrl LEFT_WIN Z  &kp X         &kp C      &kp V       &kp B         &tab_fn GLOBE TAB       &kp EQUAL  &kp N              &kp M  &lt SCROLL COMMA  &kp DOT  &kp SLASH
+&kp LEFT_SHIFT      &kp LEFT_ALT  &kp LCTRL  &lt MOUSE LANGUAGE_2  &lt FUNCTION SPACE  &lt NUM ESCAPE                  &bs_del    &lt NUM LANGUAGE_1                                 &kp RIGHT_SHIFT
+            >;
 
+            /* MOUSE=2, FUNCTION=3, NUM=4, SCROLL=6 に移動できるように修正済み */
+
+            sensor-bindings = <&encoder_msc_down_up>;
+        };
+
+        /* Layer 2: MOUSE (旧 Layer 1) */
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                        &trans    &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &mkp MB3      &trans  &mkp MB5  &mkp MB1  &mkp MB3  &mkp MB2  &trans
-&trans  &trans  &trans  &trans  &trans  &trans        &trans  &mkp MB4  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans                                  &trans
+&trans  &trans  &trans  &trans  &trans                              &trans    &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &mkp MB3        &trans  &mkp MB5  &mkp MB1  &mkp MB3  &mkp MB2  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &mkp MB4  &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans                                  &trans
             >;
 
             sensor-bindings = <&encoder_msc_down_up>;
         };
 
-        /* Layer 2: FUNCTION (ここを編集) */
-
+        /* Layer 3: FUNCTION (旧 Layer 2) */
         FUNCTION {
             bindings = <
-&bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                               &kp LS(LG(NUMBER_3))  &kp LS(LG(NUMBER_4))  &kp LS(LG(NUMBER_5))  &kp BACKSLASH     &kp PIPE
-&kp TILDE       &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &trans          &kp PERCENT  &kp CARET             &kp AMPERSAND         &kp ASTERISK          &kp SINGLE_QUOTE  &kp SEMI
-&kp F1          &kp F2        &kp F3        &kp F4        &kp F5        &kp F6          &kp F7       &kp F8                &kp F9                &kp F10               &kp F11           &kp F12
-&kp LEFT_SHIFT  &to 0         &to 6         &trans        &trans        &bt BT_CLR      &kp DELETE   &kp LC(Z)                                                                           &kp RIGHT_SHIFT
+&bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                                        &kp LS(LG(NUMBER_3))  &kp LS(LG(NUMBER_4))  &kp LS(LG(NUMBER_5))  &kp BACKSLASH     &kp PIPE
+&kp TILDE       &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR      &trans                  &kp PERCENT  &kp CARET             &kp AMPERSAND         &kp ASTERISK          &kp SINGLE_QUOTE  &kp SEMI
+&kp F1          &kp F2        &kp F3        &kp F4        &kp F5          &kp F6                  &kp F7       &kp F8                &kp F9                &kp F10               &kp F11           &kp F12
+&kp LEFT_SHIFT  &to MAC_BASE  &to WIN_BASE  &trans        &trans          &bt BT_CLR              &kp DELETE   &kp LC(Z)                                                                           &kp RIGHT_SHIFT
             >;
 
-            /* ↑左手親指付近の空き＆右手親指付近に &to 0 (Mac) と &to 6 (Win) を配置しました */
+            /* &to 0 (Mac) と &to 1 (Win) に修正済み */
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
         };
 
-        /* Layer 3 */
-
+        /* Layer 4: NUM (旧 Layer 3) */
         NUM {
             bindings = <
-&kp STAR   &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9    &kp PLUS                                     &trans                 &trans            &trans             &trans           &trans
-&kp SLASH  &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6    &kp MINUS  &trans      &kp HOME              &kp LEFT_ARROW         &kp DOWN_ARROW    &kp UP_ARROW       &kp RIGHT_ARROW  &kp END
-&trans     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3    &kp EQUAL  &trans      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE   &kp RIGHT_BRACE
-&trans     &kp PERIOD    &kp NUMBER_0  &kp LANGUAGE_1  &trans     &trans      &trans                &trans                                                                       &trans
+&kp STAR   &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9    &kp PLUS                                        &trans          &trans          &trans           &trans           &trans
+&kp SLASH  &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6    &kp MINUS  &trans                  &kp HOME     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW     &kp RIGHT_ARROW  &kp END
+&trans     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3    &kp EQUAL  &trans                  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE   &kp RIGHT_BRACE
+&trans     &kp PERIOD    &kp NUMBER_0  &kp LANGUAGE_1  &trans     &trans                  &trans       &trans                                                            &trans
             >;
         };
 
-        /* Layer 4 */
-
+        /* Layer 5: ARROW (旧 Layer 4) */
         ARROW {
             bindings = <
-&trans     &kp LC(E)       &kp UP_ARROW    &kp LC(A)        &trans                         &trans  &trans  &trans  &trans  &trans
-&kp LC(B)  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp LC(F)  &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans     &kp END         &trans          &kp HOME         &trans     &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans     &trans          &trans          &trans           &trans     &trans      &trans  &trans                          &trans
+&trans     &kp LC(E)       &kp UP_ARROW    &kp LC(A)        &trans                              &trans  &trans  &trans  &trans  &trans
+&kp LC(B)  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp LC(F)  &trans           &trans  &trans  &trans  &trans  &trans  &trans
+&trans     &kp END         &trans          &kp HOME         &trans     &trans           &trans  &trans  &trans  &trans  &trans  &trans
+&trans     &trans          &trans          &trans           &trans     &trans           &trans  &trans                          &trans
             >;
 
             sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
         };
 
-        /* Layer 5 */
-
+        /* Layer 6: SCROLL (旧 Layer 5) */
         SCROLL {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                          &trans
+&trans  &trans  &trans  &trans  &trans                              &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans                          &trans
             >;
-        };
-
-        /* Layer 6: WINDOWS Base (新規追加) */
-
-        WIN_BASE {
-            bindings = <
-&kp Q               &kp W         &kp E      &kp R             &kp T                                          &kp Y             &kp U  &kp I        &kp O    &kp P
-&kp A               &kp S         &kp D      &kp F             &kp G        &mkp MCLK              &kp MINUS  &kp H             &kp J  &kp K        &kp L    &lt 1 ENTER
-&z_ctrl LEFT_WIN Z  &kp X         &kp C      &kp V             &kp B        &tab_fn GLOBE TAB      &kp EQUAL  &kp N             &kp M  &lt 5 COMMA  &kp DOT  &kp SLASH
-&kp LEFT_SHIFT      &kp LEFT_ALT  &kp LCTRL  &lt 1 LANGUAGE_2  &lt 2 SPACE  &lt 3 ESCAPE           &bs_del    &lt 3 LANGUAGE_1                               &kp RIGHT_SHIFT
-            >;
-
-            /* ↑変更点: 左手親指の LEFT_COMMAND を LCTRL に変更。
-               また、Zキーの長押し(z_ctrl)の中身を LCTRL から LEFT_WIN に変更しています（Windowsのショートカット用）*/
-
-            sensor-bindings = <&encoder_msc_down_up>;
         };
     };
 };
+
