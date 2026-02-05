@@ -12,17 +12,14 @@
 #define MOUSE    2
 #define FUNCTION 3
 #define NUM      4
-#define ARROW    5
-#define SCROLL   6
+#define SCROLL   5
 
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
 };
 
-/* SCROLLレイヤーの番号が変わったため修正 (5 -> 6) */
-
-&trackball { scroll-layers = <6>; };
+&trackball { scroll-layers = <5>; };
 
 / {
     combos {
@@ -125,7 +122,7 @@
             sensor-bindings = <&encoder_msc_down_up>;
         };
 
-        /* Layer 1: WINDOWS Base (ここへ移動) */
+        /* Layer 1: WINDOWS Base */
 
         WIN_BASE {
             bindings = <
@@ -135,12 +132,12 @@
 &kp LEFT_SHIFT      &kp LEFT_ALT  &kp LCTRL  &lt 4 LANGUAGE_2  &lt 3 SPACE  &lt 2 ESCAPE       &kp BACKSPACE  &lt 4 LANGUAGE_1                               &kp DELETE
             >;
 
-            /* MOUSE=2, FUNCTION=3, NUM=4, SCROLL=6 に移動できるように修正済み */
+            /* MOUSE=2, FUNCTION=3, NUM=4, SCROLL=5 */
 
             sensor-bindings = <&encoder_msc_down_up>;
         };
 
-        /* Layer 2: MOUSE (旧 Layer 1) */
+        /* Layer 2: MOUSE */
 
         MOUSE {
             bindings = <
@@ -153,7 +150,7 @@
             sensor-bindings = <&encoder_msc_down_up>;
         };
 
-        /* Layer 3: FUNCTION (旧 Layer 2) */
+        /* Layer 3: FUNCTION */
 
         FUNCTION {
             bindings = <
@@ -163,12 +160,10 @@
 &kp LEFT_SHIFT  &to 0         &to 1         &trans        &trans        &bt BT_CLR      &kp DELETE   &kp LC(Z)                                                                           &kp RIGHT_SHIFT
             >;
 
-            /* &to 0 (Mac) と &to 1 (Win) に修正済み */
-
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
         };
 
-        /* Layer 4: NUM (旧 Layer 3) */
+        /* Layer 4: NUM */
 
         NUM {
             bindings = <
@@ -179,8 +174,7 @@
             >;
         };
 
-        /* Layer 5: ARROW (旧 Layer 4) */
-        /* Layer 6: SCROLL (旧 Layer 5) */
+        /* Layer 5: SCROLL */
 
         SCROLL {
             bindings = <
